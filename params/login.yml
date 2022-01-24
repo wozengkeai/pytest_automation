@@ -1,0 +1,15 @@
+-
+  name: 登陆测试用例
+  request:
+      headers:
+          Content-Type: application/json;charset=utf-8
+          User-Agent: okhttp/4.2.2
+          Authorization: ${read_yaml('extract.yaml','anonymoustoken')}
+      json:
+          code: ${read_yaml('extract.yaml','singlecode')}
+      method: POST
+      url: /auth/login
+  validate:
+    - eq:
+        - content.msg
+        - ok

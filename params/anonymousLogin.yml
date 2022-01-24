@@ -1,0 +1,15 @@
+-
+  name: 登陆企业平台公司
+  request:
+      headers:
+          Content-Type: application/json;charset=UTF-8
+          User-Agent: okhttp/4.2.2
+          Authorization: ${read_yaml('extract.yaml','token')}
+      json:
+          companyId: 382
+      method: POST
+      url: /auth/anonymousLogin
+  validate:
+    - eq:
+        - content.msg
+        - ok

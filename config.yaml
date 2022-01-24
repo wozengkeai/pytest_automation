@@ -1,0 +1,8 @@
+-
+  base:
+    base_url: https://suplus-worth-web-gateway-test.fjmaimaimai.com
+    business_url: https://suplus-business-admin-gateway-test.fjmaimaimai.com
+#log:
+#  log_name: logs_
+#  log_level: info
+#  log_format: '[%(asctime)s]'

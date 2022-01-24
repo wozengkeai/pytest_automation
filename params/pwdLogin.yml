@@ -1,0 +1,17 @@
+-
+  name: 登陆企业平台测试用例
+  request:
+      headers:
+          Content-Type: application/json;charset=UTF-8
+          User-Agent: okhttp/4.2.2
+      json:
+          username: '13800000001'
+          password: 20eabe5d64b0e216796e834f52d61fd0b70332fc
+      method: POST
+      url: /auth/pwdLogin
+  extract:
+      token: content.data.access.token
+  validate:
+    - eq:
+        - content.msg
+        - ok
