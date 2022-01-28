@@ -23,12 +23,12 @@ def read_testcase_yaml(yaml_name):
     读取yml文件，对yaml反序列化，就是把yaml格式转化为dict格式
     :return:
     """
-    with open(str(Path.cwd())+'\\params\\'+yaml_name,mode='r',encoding='utf-8') as f:
+    with open(str(Path.cwd())+'\\params\\login\\'+yaml_name,mode='r',encoding='utf-8') as f:
         # value = yaml.load(f,Loader=yaml.FullLoader)
         value = f.read()
         value = ReadYamlRender().content_function(value)
 
-        value = yaml.load(value, Loader=yaml.FullLoader)
+        # value = yaml.load(value, Loader=yaml.FullLoader)
         # print(type(value))
         return value
 

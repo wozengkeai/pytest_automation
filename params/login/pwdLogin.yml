@@ -1,12 +1,14 @@
 -
   name: 登陆企业平台测试用例
+#  parameters:
+#      username: ${P(pwddata.csv)}
   request:
       headers:
           Content-Type: application/json;charset=UTF-8
           User-Agent: okhttp/4.2.2
       json:
           username: '13800000001'
-          password: 20eabe5d64b0e216796e834f52d61fd0b70332fc
+          password: 7c4a8d09ca3762af61e59520943dc26494f8941b
       method: POST
       url: /auth/pwdLogin
   extract:
