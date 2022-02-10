@@ -19,7 +19,6 @@ class TestLogin:
     """
     登陆接口用例
     """
-
     @pytest.mark.parametrize('pwdinfo', read_testcase_yaml('pwdLogin.yml'))
     @pytest.mark.parametrize('confinfo', read_config())
     def test_login_pwdlogin(self,pwdinfo,confinfo):
@@ -37,9 +36,9 @@ class TestLogin:
 
         req = RequestUtil().send_request(method, url, data, headers=headers)
         result = json.loads(req)
-        # pprint(result)
-        token = result['data']['access']['token']
-        write_yaml({"token": 'Bearer '+token},'extract.yaml')   #需要将token写入文件
+        pprint(result)
+        # token = result['data']['access']['token']
+        # write_yaml({"token": 'Bearer '+token},'extract.yaml')   #需要将token写入文件
 
 
     @pytest.mark.parametrize('confinfo',read_config())
@@ -60,8 +59,8 @@ class TestLogin:
         req = RequestUtil().send_request(method, url, data, headers=headers)
         result = json.loads(req)
         # pprint(result)
-        anonymous_token = result['data']['access']['token']
-        write_yaml({"anonymoustoken": 'Bearer ' + anonymous_token},'extract.yaml')
+        # anonymous_token = result['data']['access']['token']
+        # write_yaml({"anonymoustoken": 'Bearer ' + anonymous_token},'extract.yaml')
 
 
     @pytest.mark.parametrize('confinfo',read_config())
@@ -89,7 +88,7 @@ class TestLogin:
                 urlcode = urllist[i]['url']
         # print(urlcode)
         singlecode = get_secret(urlcode)
-        write_yaml({"singlecode":  singlecode}, 'extract.yaml')
+        # write_yaml({"singlecode":  singlecode}, 'extract.yaml')
 
 
     @pytest.mark.parametrize('logininfo',read_testcase_yaml('login.yml'))
@@ -102,5 +101,5 @@ class TestLogin:
         method = logininfo['request']['method']
         req = RequestUtil().send_request(method,url,data,headers=headers)
         result = json.loads(req)
-        accessToken = result['data']['access']['accessToken']
-        write_yaml({"accessToken": accessToken},'extract.yaml')
+        # accessToken = result['data']['access']['accessToken']
+        # write_yaml({"accessToken": accessToken},'extract.yaml')
