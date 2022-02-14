@@ -6,6 +6,7 @@ import re
 from pprint import pprint
 from typing import Text
 from pathlib import Path
+from common import log
 from debugtalk import *
 class ReadYamlRender:
     #$var
@@ -15,6 +16,8 @@ class ReadYamlRender:
     # function_regexp = "\$\{.*\(.*\)\}"
 
     functions = {}
+    def __init__(self):
+        self.log = log.MyLog()
 
     def get_data(self,yaml_name):
         """
@@ -57,7 +60,7 @@ class ReadYamlRender:
         """
         #获取yml文件内容
         # ymlcontent = self.get_data('login\\pwdLogin.yml')
-
+        # self.log.info('yml文件内容' + ymlcontent)
         #获取函数变量 ['gen_random_string(1)', 'gen_random_string(2)']
         funcnames = self.extract_functions(ymlcontent)
         csv_varname = []
@@ -74,7 +77,8 @@ class ReadYamlRender:
             else:
                 try:
                     value = eval(func)   #将字符串转为python的表达式，并输出结果
-                except Exception:
+                except Exception as error:
+                    self.log.error('查不到有效函数: %s'%(error))
                     continue
 
                 func = "${" + func + "}"
@@ -90,7 +94,8 @@ class ReadYamlRender:
             try:
                 value = eval(var)
                 strvalue = str(value)
-            except Exception:
+            except Exception as error:
+                self.log.error('查不到有效变量: %s' % (error))
                 continue
 
             var = "$" + var
@@ -113,10 +118,8 @@ class ReadYamlRender:
                 if i == 0:
                     # 第一次参数化不需要新增，而是覆盖之前的用例
                     list2yml = []
-                # ymlparsecontent.append(changecontent)
                 changecontentlist = yaml.load(changecontent, Loader=yaml.FullLoader)
                 list2yml.extend(changecontentlist)
-        # pprint(list2yml)
         return list2yml
 
 
@@ -124,10 +127,5 @@ class ReadYamlRender:
 
 if __name__ == '__main__':
     # value = ReadYamlRender().get_data('\\anonymousLogin.yml')
-    # content = ReadYamlRender().extract_functions(value)
-    # print(content)
-    # for func in content:
-    #     print(func)
-    #     print(ReadYamlRender().parse_function(func))
-    # print(ReadYamlRender()._eval_content_functions(value))
+
     ReadYamlRender().content_function()
